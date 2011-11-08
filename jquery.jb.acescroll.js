@@ -14,7 +14,8 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  *  
- *
+ * events 
+ * 	click - user clicked on track or scrollbar
  *
 */
 (function($) {
@@ -57,6 +58,8 @@
             
             self.wrapper.addClass('jb-ace-scroll-orientation-' + o.orientation )
             
+            self._positionWrapper();
+                        
             if( o.orientation == 'vertical' ){
             	self._viewPort = el.innerHeight();
             	self._scrollProp = 'scrollTop';
@@ -66,6 +69,8 @@
             	self._scrollProp = 'scrollTop';
             	self._axis = 'x';
             }
+            
+            self._positionWrapper();
             
             el
             .addClass('jb-ace-scroll-target')
@@ -107,10 +112,14 @@
                 event.preventDefault();
 
             })
-          
 
 
-            self._positionWrapper();
+            //trigger click event
+            this.wrapper.delegate( 'div','mousedown', function( e ){
+            	self._trigger('click' , e, {} )
+            })
+            
+            
             
             //click on the track move to that point
             this.wrapper
@@ -138,6 +147,8 @@
             	.bind('mouseleave',function(){
             		$(this).removeClass('jb-state-hover')
             	})
+            	
+
             
             
             this.wrapper
