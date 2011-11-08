@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="author" content="Jesse Baird">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+  
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" />
+   <link rel="stylesheet" href="jquery.jb.acescroll.css" />
+  
+  <script type="text/javascript" src="mousewheel.js"></script>
+  <script type="text/javascript" src="jquery.jb.acescroll.js"></script>
+  <script type="text/javascript" src="jquery-mousewheel-3.0.5/jquery.mousewheel.js"></script>
+  
+
+	<title>widget test</title>
+    
+    <style type="text/css">
+    .ui-icon-triangle-1-s {
+        background-position:-65px -16px;
+    }
+
+        .wrapper{
+            height: 401px;
+            width: 450px;
+
+            border: 1px solid black;
+        }
+
+        .content{
+            width: 100%;
+            height:100%
+        }
+        .table{
+        	width: 1250px;
+        }
+        .table table{
+        	width: 100%;
+        }
+    </style>
+    
+</head>
+
+<body>
+<h1>acescroll demo</h1>
+<p>a custom scroll bar by Jesse Baird <a href="http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar">http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar</a></p>
+<div class="wrapper">
+
+
+<div class="content">
+
+<h1>This is a demo</h1>
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+<hr />
+<h1>Important Employees</h1>
+	<table id="one">
+		<thead class="test">
+			<tr>
+				<th>ID</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>phone number</th>
+				<th>team color</th>
+				<th>salary</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>10234</td>
+				<td>John</td>
+				<td>Smith</td>
+				<td>555-555-5555</td>
+				<td>orange</td>
+				<td>$2.00</td>
+			</tr>
+			<tr>
+				<td>102288</td>
+				<td>Jane</td>
+				<td>Smith</td>
+				<td>555-445-5555</td>
+				<td>purplue</td>
+				<td>$1000.00</td>
+			</tr>
+			<tr>
+				<td>11534</td>
+				<td>Ben</td>
+				<td>Dover</td>
+				<td>555-443-5555</td>
+				<td>pink</td>
+				<td>$200.00</td>
+			</tr>
+			<tr>
+				<td>2153</td>
+				<td>Goldy</td>
+				<td>Dilgger</td>
+				<td>555-555-2562</td>
+				<td>blue</td>
+				<td>$200.40</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Steve</td>
+				<td>Southwest</td>
+				<td>554-555-3562</td>
+				<td>orange</td>
+				<td>$710.40</td>
+			</tr>
+		</tbody>
+	</table>
+<hr />
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+
+<h1>This is a demo</h1>
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+<hr />
+<h1>Important Employees</h1>
+	<table id="one">
+		<thead class="test">
+			<tr>
+				<th>ID</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>phone number</th>
+				<th>team color</th>
+				<th>salary</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>10234</td>
+				<td>John</td>
+				<td>Smith</td>
+				<td>555-555-5555</td>
+				<td>orange</td>
+				<td>$2.00</td>
+			</tr>
+			<tr>
+				<td>102288</td>
+				<td>Jane</td>
+				<td>Smith</td>
+				<td>555-445-5555</td>
+				<td>purplue</td>
+				<td>$1000.00</td>
+			</tr>
+			<tr>
+				<td>11534</td>
+				<td>Ben</td>
+				<td>Dover</td>
+				<td>555-443-5555</td>
+				<td>pink</td>
+				<td>$200.00</td>
+			</tr>
+			<tr>
+				<td>2153</td>
+				<td>Goldy</td>
+				<td>Dilgger</td>
+				<td>555-555-2562</td>
+				<td>blue</td>
+				<td>$200.40</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Steve</td>
+				<td>Southwest</td>
+				<td>554-555-3562</td>
+				<td>orange</td>
+				<td>$710.40</td>
+			</tr>
+		</tbody>
+	</table>
+<hr />
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+
+</div>
+
+</div>
+
+
+
+</div>
+<hr />
+<h2>horizontal</h2>
+<div class="wrapper">
+
+
+<div class="content2 content">
+
+<div class="table">
+	
+	
+	<h1>This is a demo</h1>
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+<hr />
+<h1>Important Employees</h1>
+	<table id="one">
+		<thead class="test">
+			<tr>
+				<th>ID</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>phone number</th>
+				<th>team color</th>
+				<th>salary</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>10234</td>
+				<td>John</td>
+				<td>Smith</td>
+				<td>555-555-5555</td>
+				<td>orange</td>
+				<td>$2.00</td>
+			</tr>
+			<tr>
+				<td>102288</td>
+				<td>Jane</td>
+				<td>Smith</td>
+				<td>555-445-5555</td>
+				<td>purplue</td>
+				<td>$1000.00</td>
+			</tr>
+			<tr>
+				<td>11534</td>
+				<td>Ben</td>
+				<td>Dover</td>
+				<td>555-443-5555</td>
+				<td>pink</td>
+				<td>$200.00</td>
+			</tr>
+			<tr>
+				<td>2153</td>
+				<td>Goldy</td>
+				<td>Dilgger</td>
+				<td>555-555-2562</td>
+				<td>blue</td>
+				<td>$200.40</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Steve</td>
+				<td>Southwest</td>
+				<td>554-555-3562</td>
+				<td>orange</td>
+				<td>$710.40</td>
+			</tr>
+		</tbody>
+	</table>
+<hr />
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+
+<h1>This is a demo</h1>
+
+<p>
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</p>
+<p>
+	Rebum ludus verterem an sit. Usu soleat placerat inimicus no, in liber debitis consulatu usu. Cetero vivendum reprimique eam at. Ad mazim elaboraret est, modus detraxit adolescens ad has. Mentitum atomorum sit id, ex aperiam erroribus ius. Ea has aliquyam honestatis liberavisse.
+</p>
+
+<p>
+	Sit legere dissentiunt ne, vis officiis contentiones ei, eam munere commodo pertinax ut. Duo novum aliquam periculis te, et soluta fabulas pri, id feugiat admodum ius. Ad dico expetendis dissentiet qui, per epicurei expetenda ut. In tota copiosae efficiantur nec, assum fabulas scripserit et pri. Eos an dicat corrumpit, nonumy viderer ius eu.
+</p>
+<hr />
+<h1>Important Employees</h1>
+	<table id="one">
+		<thead class="test">
+			<tr>
+				<th>ID</th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>phone number</th>
+				<th>team color</th>
+				<th>salary</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>10234</td>
+				<td>John</td>
+				<td>Smith</td>
+				<td>555-555-5555</td>
+				<td>orange</td>
+				<td>$2.00</td>
+			</tr>
+			<tr>
+				<td>102288</td>
+				<td>Jane</td>
+				<td>Smith</td>
+				<td>555-445-5555</td>
+				<td>purplue</td>
+				<td>$1000.00</td>
+			</tr>
+			<tr>
+				<td>11534</td>
+				<td>Ben</td>
+				<td>Dover</td>
+				<td>555-443-5555</td>
+				<td>pink</td>
+				<td>$200.00</td>
+			</tr>
+			<tr>
+				<td>2153</td>
+				<td>Goldy</td>
+				<td>Dilgger</td>
+				<td>555-555-2562</td>
+				<td>blue</td>
+				<td>$200.40</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Steve</td>
+				<td>Southwest</td>
+				<td>554-555-3562</td>
+				<td>orange</td>
+				<td>$710.40</td>
+			</tr>
+		</tbody>
+	</table>
+<hr />
+
+
+
+</div>
+
+	
+</div>
+
+
+</div>
+
+
+
+</div>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+       $('.content:first').acescroll();
+       
+       
+       $('.content2').acescroll({
+       		orientation: 'horizontal',
+       		position: {
+       			my:'left top',
+                at:'left top',
+                offset:'0 -5',
+                collision:'none'
+       		}
+       });
+
+	});
+</script>
+</body>
+</html>
