@@ -206,12 +206,8 @@
 			$.Widget.prototype._setOption.apply( this, arguments );
 			
 			switch( key ){
-				case 'orientation': 
-					if( value == 'vertical' ){
-						
-					}else{
-						//horizontal
-					}
+				case 'position': 
+					this._positionWrapper();
 					break;
 			}
            
