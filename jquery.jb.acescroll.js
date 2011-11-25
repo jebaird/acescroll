@@ -40,7 +40,7 @@
 			var self = this,
 				o = self.options,
 				el = self.element;
-            console.log( this )    
+
             self.wrapper = $('<div class="jb-ace-scroll-wrapper">'+ 
             					'<div class="jb-ace-scroll-track">'+
             					'<div class="jb-ace-scroll-scrollbar">'+
@@ -191,7 +191,11 @@
                 containment: 'parent',
                 
                 cancel: '.jb-ace-scroll-scrollbar-btn',
-                start: function(){
+                start: function( e, ui ){
+                	///if the scrollHeight is the same as the offsetHeight then we can scroll
+                	if( self._isScrollable() == false ){
+                		return false;
+                	}
                 	self.isDragging = true;
                 	$(this).addClass('jb-state-active')
                 },
@@ -226,7 +230,7 @@
 		_setOption: function( key, value) {
 			
 			//if( option == 'orientation')
-			console.log( 'balhj')
+			// console.log( 'balhj')
 			$.Widget.prototype._setOption.apply( this, arguments );
 			
 			switch( key ){
@@ -285,6 +289,18 @@
         },
         _isVert: function(){
         	return ( this.options.orientation == 'vertical' ) ? true : false;
+        },
+        _isScrollable: function(){
+        	var isVert = this._isVert(),
+        		element = this.element[0];
+        	if( element.scrollHeight <= element.offsetHeight && isVert ){
+        		//disable reset dragable and disable
+        		return false;
+        	}else if( element.scrollWidth <= element.offsetWidth && !isVert ){
+        		return false;	
+        	}
+        	
+        	return true;
         }
         
 	});

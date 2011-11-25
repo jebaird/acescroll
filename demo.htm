@@ -46,10 +46,20 @@
 <body>
 <h1>acescroll demo</h1>
 <p>a custom scroll bar by Jesse Baird <a href="http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar">http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar</a></p>
+
+<div class="wrapper">
+	<div class="content noscroll">
+		I shouldnt scroll
+		
+	</div>
+</div>
+
+
+
 <div class="wrapper">
 
 
-<div class="content">
+<div class="content vert">
 
 <h1>This is a demo</h1>
 
@@ -398,8 +408,9 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
-       $('.content:first').acescroll();
+       $('.vert').acescroll();
        
+       $('.noscroll').acescroll();
        
        $('.content2').acescroll({
        		orientation: 'horizontal',
