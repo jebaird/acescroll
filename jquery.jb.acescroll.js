@@ -16,6 +16,9 @@
  *  
  * events 
  * 	click - user clicked on track or scrollbar
+ * 
+ * TODO:
+ * 	scrollbar auto size, change the size of the scroll bar based on the scroll content
  *
 */
 (function($) {
@@ -40,7 +43,7 @@
 			var self = this,
 				o = self.options,
 				el = self.element;
-            console.log( this )    
+
             self.wrapper = $('<div class="jb-ace-scroll-wrapper">'+ 
             					'<div class="jb-ace-scroll-track">'+
             					'<div class="jb-ace-scroll-scrollbar">'+
