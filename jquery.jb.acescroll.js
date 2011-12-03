@@ -100,36 +100,22 @@
         			
         			   var dirX = deltaX > 0 ? 'Right' : 'Left',
                 			vel = (dirX=='Left')?-Math.abs(deltaX):Math.abs(deltaX);
-                	//
-		              //  	console.log( this.scrollTop, this.scrollHeight )
-		               	// if( this[ self._scrollProp ] == 0 && dir == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dir=='Down'  ){
-		                    // //console.log('up false');
-		                    // return false;
-		                // }
 		                
 		                this.scrollLeft =+ this.scrollLeft + vel * o.scrollSpeed;
         			
         		}
-        		
-             
                 event.preventDefault();
 
             })
-
-
             //trigger click event
             this.wrapper.delegate( 'div','mousedown', function( e ){
             	self._trigger('click' , e, {} )
             })
-            
-            
-            
             //click on the track move to that point
             this.wrapper
             	.find('.jb-ace-scroll-track')
             	.bind('click.' + this.name, function( e ){
             		//figure out the scroll top from the e.layerY
-            		console.log('trrack click')
             		if( self._isVert() ){
             			el.animate({
 	                    	'scrollTop': self._pixelRatio() * e.layerY
@@ -139,10 +125,6 @@
 	                    	'scrollLeft': self._pixelRatio() * e.layerX
 	                	},o.animationSpeed);	
             		}
-            		
-            		
-            		
-
             	})
             	.bind('mouseenter',function(){
             		$(this).addClass('jb-state-hover')
@@ -154,8 +136,7 @@
 
             
             
-            this.wrapper
-            .find('div.jb-ace-scroll-scrollbar-btn')
+            this.wrapper.find('div.jb-ace-scroll-scrollbar-btn')
 	            .hover(function(e){
 	                $(this).toggleClass('jb-state-hover')
 	            })
@@ -163,7 +144,7 @@
 	            .bind('click.' + this.name ,function(e){
 	            	self.isDragging = true;
 	            	var done = function(){
-	            		console.log( 'done')
+	            		//console.log( 'done')
 	            		self.isDragging = false;
 	            	}
 	                if( self._isVert() ){
@@ -188,19 +169,22 @@
 				});
 	            
             
-           this.scrollbar
-            .draggable({
+           this.scrollbar.draggable({
                 axis: self._axis,
                 containment: 'parent',
                 
                 cancel: '.jb-ace-scroll-scrollbar-btn',
-                start: function(){
+                start: function( e, ui ){
+                	///if the scrollHeight is the same as the offsetHeight then we can scroll
+                	if( self._isScrollable() == false ){
+                		return false;
+                	}
                 	self.isDragging = true;
                 	$(this).addClass('jb-state-active')
                 },
                 drag: function(e,ui) {
                 	if( self._isVert() ){
-                		el[0].scrollTop = self._pixelRatio() * ui.position.top ;
+                		el[0].scrollTop = self._pixelRatio() * ui.position.top;
                 	}else{
                 		el[0].scrollLeft = self._pixelRatio() * ui.position.left;	
                 	}
@@ -211,13 +195,6 @@
                 	$(this).removeClass('jb-state-active')
                 }
             });
-            
-            //FIX this
-            // $(window).bind('resize',function(){
-                // self._viewPort = el.innerHeight();
-                // self._positionWrapper();
-            // });
-               
 		},
 				
 		destroy: function() {			
@@ -229,16 +206,11 @@
 		_setOption: function( key, value) {
 			
 			//if( option == 'orientation')
-			console.log( 'balhj')
 			$.Widget.prototype._setOption.apply( this, arguments );
 			
 			switch( key ){
-				case 'orientation': 
-					if( value == 'vertical' ){
-						
-					}else{
-						//horizontal
-					}
+				case 'position': 
+					this._positionWrapper();
 					break;
 			}
            
@@ -283,11 +255,23 @@
             	css[ 'width' ] = this._viewPort;
             }
             this.wrapper
-            .css(css)
-            .position( $.extend( this.options.position, {of:this.element}))
+	            .css(css)
+	            .position( $.extend( this.options.position, { of:this.element}))
         },
         _isVert: function(){
         	return ( this.options.orientation == 'vertical' ) ? true : false;
+        },
+        _isScrollable: function(){
+        	var isVert = this._isVert(),
+        		element = this.element[0];
+        	if( element.scrollHeight <= element.offsetHeight && isVert ){
+        		//disable reset dragable and disable
+        		return false;
+        	}else if( element.scrollWidth <= element.offsetWidth && !isVert ){
+        		return false;	
+        	}
+        	
+        	return true;
         }
         
 	});
