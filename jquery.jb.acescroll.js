@@ -26,6 +26,8 @@
 			scrollSpeed: 100,
 			animationSpeed: 150,
 			orientation: 'vertical',
+			//numeric value in % or false to disable(use css value)
+			minScrollBarWidth: 10,
 			position: {
 				my:'left top',
                 at:'right top',
@@ -66,7 +68,7 @@
             	self._axis = 'y';
             }else{
             	self._viewPort = el.innerWidth();
-            	self._scrollProp = 'scrollTop';
+            	self._scrollProp = 'scrollLeft';
             	self._axis = 'x';
             }
             
@@ -192,6 +194,10 @@
                 	$(this).removeClass('jb-state-active')
                 }
             });
+            
+            self.setScrollBarWidth();
+            
+            self._handleElementChange();
 		},
 				
 		destroy: function() {			
@@ -269,6 +275,67 @@
         	}
         	
         	return true;
+        },
+        //make the scrollbar size relitave to the scrollHeight/Width
+        setScrollBarWidth: function(){
+        	//this.scrollbar
+        	//disabled option
+        	if( this.options.minScrollBarWidth === false ){
+        		return;
+        	}
+        	//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
+        	var height = 100 / Math.ceil( this.element[0].scrollHeight / this._viewPort ) ;
+        	
+        	if( height < this.options.minScrollBarWidth ){
+        		height = this.options.minScrollBarWidth;
+        	}
+        	if( this._isVert() ){
+        		this.scrollbar.css( 'height', height +'%' )	
+        	}else{
+        		this.scrollbar.css( 'width', height +'%' )
+        	}
+        	
+        	
+        	
+        	
+        },
+        //returns scrollHeight or scrollWidth depening orentation
+        _getScrollDem: function(){
+        	var element = this.element[ 0 ];
+        	return ( this._isVert() ) ? element.scrollHeight : element.scrollWidth;
+        },
+        //get the scrollbar position
+        _getScrollPos: function(){
+        	var element = this.element[ 0 ];
+        	return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
+        },
+        //call this if the viewport changed( then position the wrapper and scrollbar and change the height )
+        //use scrollHeight, or scrollWidth
+        _handleElementChange: function(){
+        	var self = this;
+			//this._prevScrollDem = this._getScrollDem();
+
+        	// var isVert = this._isVert(),
+        		// viewPort = ( isVert ) ? this.element.innerHeight() : this.element.innerWidth();
+        	// the element has changed position
+        	// if( this._viewPort != viewPort ){
+        		// this._positionWrapper();
+        		// this.setScrollBarWidth();
+//         		
+        	// }
+        	//console.log( this._prevScrollDem )
+        	
+        	if( this._getScrollDem() != this._prevScrollDem && this._prevScrollDem != undefined ){
+        		//console.log('change scroll dem')
+        		this.setScrollBarWidth();
+        	}
+        	
+        	this._prevScrollDem = this._getScrollDem();
+        	
+        	//call again
+        	setTimeout( function(){
+        		self._handleElementChange()
+        	}, 1000 );
         }
         
 	});
