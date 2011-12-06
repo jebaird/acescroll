@@ -408,7 +408,14 @@
 <script type="text/javascript">
     
     $(document).ready(function(){
-       $('.vert').acescroll();
+       $('.vert').acescroll({
+       		click: function( e, ui ){
+       			console.log( 'click ', e, ui)
+       		},
+       		scroll: function(e, ui ){
+       			console.log( 'scroll ', e, ui)
+       		}
+       });
        
        $('.noscroll').acescroll();
        

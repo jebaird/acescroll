@@ -16,6 +16,7 @@
  *  
  * events 
  * 	click - user clicked on track or scrollbar
+ * 	change - the scroll top has changed
  * 
  * TODO:
  * 	scrollbar auto size, change the size of the scroll bar based on the scroll content
@@ -77,8 +78,11 @@
             
             el
             .addClass('jb-ace-scroll-target')
-            .bind( 'scroll.' + this.name,function(){
+            .bind( 'scroll.' + this.name,function( event ){
             	self._positionScrollbar();
+            	
+            	return self._eventHelper('scroll', event, {} );
+
             })
             .bind( 'mousewheel.' + this.name , function( event, delta, deltaX, deltaY){
         	//	console.log( 'mosuewheel', event, delta, deltaX, deltaY )
@@ -108,8 +112,8 @@
 
             })
             //trigger click event
-            this.wrapper.delegate( 'div','mousedown', function( e ){
-            	self._trigger('click' , e, {} )
+            this.wrapper.delegate( 'div','mousedown', function( event ){
+            	return self._eventHelper('click', event, {} )
             })
             //click on the track move to that point
             this.wrapper
@@ -272,7 +276,26 @@
         	}
         	
         	return true;
+        },
+        _eventHelper: function( eventName, event, options ){
+        	var isVert = this._isVert(),
+        		element = this.element[0];
+        	
+        	return this._trigger( 
+        		eventName, 
+        		event, 
+        		$.extend(
+        			{},
+        			{
+        				scrollDem: ( isVert ) ? element.scrollHeight : element.scrollWidth,
+        				scrollPos: ( isVert ) ? element.scrollTop : element.scrollLeft,
+        				viewPort: this._viewPort
+        			},
+        			options
+        		) 
+        	)
         }
+        
         
 	});
 })(jQuery);
