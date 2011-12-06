@@ -14,6 +14,9 @@
   <script type="text/javascript" src="jquery.jb.acescroll.js"></script>
   <script type="text/javascript" src="jquery-mousewheel-3.0.5/jquery.mousewheel.js"></script>
   
+  
+<!--   only used to show that the wapper will be positioned if the target is resized  -->
+	<script type="text/javascript" src="https://raw.github.com/cowboy/jquery-resize/master/jquery.ba-resize.min.js"></script>
 
 	<title>widget test</title>
     
@@ -25,7 +28,7 @@
         .wrapper{
             height: 401px;
             width: 450px;
-
+            margin-bottom: 3em;
             border: 1px solid black;
         }
 
@@ -417,7 +420,9 @@
        		}
        });
        
-       $('.noscroll').acescroll();
+       $('.noscroll').acescroll({
+       		minScrollBarWidth: 10
+       });
        
        $('.content2').acescroll({
        		orientation: 'horizontal',
