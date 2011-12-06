@@ -30,7 +30,8 @@
 			//hide the scrollbar if the  content is not scrollable, show it if it is
 			autoHide: true,
 			//in ms how fast we check the target element for scrollChanges like resize or content chagnes
-			scrollChangeThrottle: 500,
+			//set to 0 to disable
+			scrollChangeInterval: 500,
 			position: {
 				my:'left top',
                 at:'right top',
@@ -400,12 +401,14 @@
         	this._prevScrollDimension = this._getScrollDimension();
         	
         	//call again
-        	setTimeout( 
-        		function(){
-        			self._handleElementChange()
-        		}, 
-        		this.options.scrollChangeThrottle 
-        	);
+        	if( this.options.scrollChangeInterval != 0 ){
+        		setTimeout( 
+	        		function(){
+	        			self._handleElementChange()
+	        		}, 
+	        		this.options.scrollChangeInterval 
+	        	);
+        	}
         }
         
         
