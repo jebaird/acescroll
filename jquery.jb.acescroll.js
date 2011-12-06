@@ -48,8 +48,8 @@
 		_create: function() {
 			
 			var self = this,
-				o = self.options,
-				el = self.element;
+				options = self.options,
+				element = self.element;
 
             self.wrapper = $('<div class="jb-ace-scroll-wrapper">'+ 
             					'<div class="jb-ace-scroll-track">'+
@@ -60,19 +60,19 @@
             						'</div>'+
             					'</div>'+
             				'</div>'
-            				).insertAfter(el);
+            				).insertAfter(element);
             				
             self.scrollbar = self.wrapper.find('.jb-ace-scroll-scrollbar');
             
             self.isDragging = false;
             
             
-            self.wrapper.addClass('jb-ace-scroll-orientation-' + o.orientation )
+            self.wrapper.addClass('jb-ace-scroll-orientation-' + options.orientation )
             
             
                         
             
-            if( o.orientation == 'vertical' ){
+            if( options.orientation == 'vertical' ){
             	self._scrollProp = 'scrollTop';
             	self._axis = 'y';
             }else{
@@ -83,12 +83,11 @@
             
             self._positionWrapper();
             
-            
             //keep track if the wrapper is visible, used when we check the element for scroll changes
             self._isWrapperVisible = true;
             
             
-            el
+            element
             .addClass('jb-ace-scroll-target')
             .bind( 'scroll.' + this.name,function( event ){
             	self._positionScrollbar();
@@ -127,6 +126,17 @@
             	self._positionWrapper();
             });
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             //trigger click event
             this.wrapper.delegate( 'div','mousedown', function( event ){
             	return self._eventHelper('click', event, {} )
@@ -137,11 +147,11 @@
             	.bind('click.' + this.name, function( e ){
             		//figure out the scroll top from the e.layerY
             		if( self._isVert() ){
-            			el.animate({
+            			element.animate({
 	                    	'scrollTop': self._pixelRatio() * e.layerY
 	                	},o.animationSpeed);	
             		}else{
-            			el.animate({
+            			element.animate({
 	                    	'scrollLeft': self._pixelRatio() * e.layerX
 	                	},o.animationSpeed);	
             		}
@@ -168,11 +178,11 @@
 	            		self.isDragging = false;
 	            	}
 	                if( self._isVert() ){
-            			el.animate({
+            			element.animate({
 	                    	'scrollTop':'+='+(($(this).attr('data-dir')=='up')?-self._viewPort:self._viewPort)
 	                	},o.animationSpeed,done);	
             		}else{
-            			el.animate({
+            			element.animate({
 	                    	'scrollLeft':'+='+(($(this).attr('data-dir')=='up')?-self._viewPort:self._viewPort)
 	                	},o.animationSpeed,done);	
             		}
@@ -216,16 +226,13 @@
                 }
             });
             
-            
-          //  self.setScrollBarWidth();
-            
             //recursivle called
             
             self._handleElementChange();
 		},
 				
 		destroy: function() {			
-			this.element.next().remove();
+			this.wrapper.remove();
 			//remove wrapper and mouse wheel events
 			$(window).unbind("resize");
 		},
@@ -341,9 +348,11 @@
         	if( this.options.minScrollBarWidth === false ){
         		return;
         	}
+        	console.log( 'vp ', this._viewPort )
         	//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
-        	var height = 100 / Math.ceil( this.element[0].scrollHeight / this._viewPort ) ;
-        	console.log( 'height', height );
+        	var height = 100 / Math.ceil( this._getScrollDem() / this._viewPort ) ;
+        	
+        	console.log( 'height ', height, this._getScrollDem(), this.element.css('overflow') )
         	
         	if( height < this.options.minScrollBarWidth ){
         		height = this.options.minScrollBarWidth;
