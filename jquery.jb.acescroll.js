@@ -302,7 +302,7 @@
 	            .css(css)
 	            .position( $.extend( this.options.position, { of:this.element}))
 	        
-	        //since the wrapper dem might have changed make sure the scrollbar postion is perportional to it 
+	        //since the wrapper _getScrollPosition might have changed make sure the scrollbar postion is perportional to it 
 	       	//set the width before posiion, insures that the bar doesnt overhang on the track
 	        this.setScrollBarWidth();
 	        this._positionScrollbar();
@@ -335,7 +335,7 @@
         			{},
         			{
         				scrollDimension: this._getScrollDimension(),
-        				scrollPosition: this._getScrollPos(),
+        				scrollPosition: this._getScrollPosition(),
         				viewPort: this._viewPort
         			},
         			options
@@ -372,7 +372,7 @@
         	return ( this._isVert() ) ? element.scrollHeight : element.scrollWidth;
         },
         //get the scrollbar position
-        _getScrollPos: function(){
+        _getScrollPosition: function(){
         	var element = this.element[ 0 ];
         	return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
         },
