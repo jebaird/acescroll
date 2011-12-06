@@ -16,10 +16,10 @@
  *  
  * events 
  * 	click - user clicked on track or scrollbar
- * 	change - the scroll top has changed
+ * 	scroll - the scrollPos has changed
  * 
  * TODO:
- * 	scrollbar auto size, change the size of the scroll bar based on the scroll content
+ * interaction classes
  *
 */
 (function($) {
@@ -52,10 +52,10 @@
 				element = self.element;
 				
 				
-			//add the target class first thinng. makes sure the math for the scrollDem will be correct	
+			//add the target class first thinng. makes sure the math for the scrollDim will be correct	
 			element.addClass('jb-ace-scroll-target')
 			 
-            self.wrapper = $('<div class="jb-ace-scroll-wrapper">'+ 
+            self.wrapper = $('<div class="jb-ace-scroll-wrapper jb-ace-scroll">'+ 
             					'<div class="jb-ace-scroll-track">'+
             					'<div class="jb-ace-scroll-scrollbar">'+
             						'<div class="jb-ace-scroll-scrollbar-btn-up jb-ace-scroll-scrollbar-btn" data-dir="up"></div>'+
@@ -95,7 +95,7 @@
             .bind( 'scroll.' + this.name,function( event ){
             	self._positionScrollbar();
             	
-            	return self._eventHelper('scroll', event, {} );
+            	return self._getScrollDimension('scroll', event, {} );
 
             })
             .bind( 'mousewheel.' + this.name , function( event, delta, deltaX, deltaY){
@@ -153,11 +153,22 @@
 	                	},options.animationSpeed);	
             		}
             	})
-            	.bind('mouseenter',function(){
-            		$(this).addClass('jb-state-hover')
+            	.bind('mouseenter.' + this.name,function(){
+            		self.wrapper.addClass('jb-state-hover')
             	})
-            	.bind('mouseleave',function(){
-            		$(this).removeClass('jb-state-hover')
+            	.bind('mouseleave.' + this.name,function(){
+            		if( self.isDragging == true ){
+            			return;
+            		}
+            		self.wrapper.removeClass('jb-state-hover')
+            	})
+            	.bind('mousedown.' + this.name,function(){
+            		
+            		self.wrapper.addClass('jb-state-active')
+            	})
+            	.bind('mouseup.' + this.name,function(){
+            		
+            		self.wrapper.removeClass('jb-state-active')
             	})
             	
 
@@ -177,23 +188,14 @@
 	                if( self._isVert() ){
             			element.animate({
 	                    	'scrollTop':'+='+(($(this).attr('data-dir')=='up')?-self._viewPort:self._viewPort)
-	                	},o.animationSpeed,done);	
+	                	},options.animationSpeed,done);	
             		}else{
             			element.animate({
 	                    	'scrollLeft':'+='+(($(this).attr('data-dir')=='up')?-self._viewPort:self._viewPort)
-	                	},o.animationSpeed,done);	
+	                	},options.animationSpeed,done);	
             		}
 	                
 	            })
-	            
-	       	this.wrapper
-	       		.find('.jb-ace-scroll-scrollbar-middle')
-	       		.hover(function(e){
-	                $(this).toggleClass('jb-state-hover')
-	            })
-	            .mousedown(function() {
-					$(this).addClass( 'jb-state-hover')
-				});
 	            
             
            this.scrollbar.draggable({
@@ -207,7 +209,8 @@
                 		return false;
                 	}
                 	self.isDragging = true;
-                	$(this).addClass('jb-state-active')
+                	// $(this).addClass('jb-state-active')
+                	// self.wrapper.find('.jb-ace-scroll-track').addClass('jb-state-active')
                 },
                 drag: function(e,ui) {
                 	if( self._isVert() ){
@@ -219,11 +222,13 @@
                },
                stop: function(){
                 	self.isDragging = false;
-                	$(this).removeClass('jb-state-active')
+                	// $(this).removeClass('jb-state-active')
+                	
+                	self.wrapper.removeClass('jb-state-active jb-state-hover')
                 }
             });
             
-            //recursivle called
+            //recursively called
             
             self._handleElementChange();
 		},
@@ -329,8 +334,8 @@
         		$.extend(
         			{},
         			{
-        				scrollDem: this._getScrollDem(),
-        				scrollPos: this._getScrollPos(),
+        				scrollDimension: this._getScrollDimension(),
+        				scrollPosition: this._getScrollPos(),
         				viewPort: this._viewPort
         			},
         			options
@@ -345,11 +350,10 @@
         	if( this.options.minScrollBarWidth === false ){
         		return;
         	}
-        	console.log( 'vp ', this._viewPort )
         	//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
-        	var height = 100 / Math.ceil( this._getScrollDem() / this._viewPort ) ;
+        	var height = 100 / Math.ceil( this._getScrollDimension() / this._viewPort ) ;
         	
-        	//console.log( 'height ', height, this._getScrollDem(), this.element.css('overflow') )
+        	//console.log( 'height ', height, this._getScrollDimension(), this.element.css('overflow') )
         	
         	if( height < this.options.minScrollBarWidth ){
         		height = this.options.minScrollBarWidth;
@@ -361,11 +365,9 @@
         	}
         	
         	
-        	
-        	
         },
         //returns scrollHeight or scrollWidth depening orentation
-        _getScrollDem: function(){
+        _getScrollDimension: function(){
         	var element = this.element[ 0 ];
         	return ( this._isVert() ) ? element.scrollHeight : element.scrollWidth;
         },
@@ -381,9 +383,7 @@
         		isScrollable = this._isScrollable();
     	
         	
-        	
-        	
-        	if( this._getScrollDem() != this._prevScrollDem && this._prevScrollDem != undefined && isScrollable == true ){
+        	if( this._getScrollDimension() != this._prevScrollDimension && this._prevScrollDimension != undefined && isScrollable == true ){
         		
         		this.setScrollBarWidth();
         	
@@ -401,7 +401,7 @@
         	
         	}
         	
-        	this._prevScrollDem = this._getScrollDem();
+        	this._prevScrollDimension = this._getScrollDimension();
         	
         	//call again
         	setTimeout( 

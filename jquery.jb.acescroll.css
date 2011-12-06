@@ -9,6 +9,7 @@
     overflow:hidden;       
 
 }
+
 .jb-ace-scroll-wrapper {
 	z-index: 1500;
     position: absolute;
@@ -18,7 +19,7 @@
 
 
 .jb-ace-scroll-wrapper .jb-ace-scroll-track{
-	background-color: #e8e8e8;
+	background-color: #E5E5E5;
 	position: absolute;
     top: 0px;
     right: 0px;
@@ -39,16 +40,18 @@
 
 /*
  * interaction queues
+ * these get applied to .jb-ace-scroll-wrapper
  */
 
-.jb-ace-scroll-wrapper .jb-ace-scroll-track.jb-state-hover{
-	background-color: #cfcece;
+.jb-state-hover .jb-ace-scroll-track,
+.jb-state-active .jb-ace-scroll-track {
+	background-color: #D6D6D6;
 }
-.jb-ace-scroll-wrapper .jb-ace-scroll-scrollbar .jb-state-hover {
-	background-color: #545454;
-}
-.jb-ace-scroll-wrapper .jb-ace-scroll-scrollbar .jb-state-active {
-	background-color: #3a3a3a;
+.jb-state-hover .jb-ace-scroll-scrollbar,
+.jb-state-hover .jb-ace-scroll-scrollbar .jb-ace-scroll-scrollbar-middle,
+.jb-state-active .jb-ace-scroll-scrollbar,
+ .jb-state-hover .jb-ace-scroll-scrollbar .jb-ace-scroll-scrollbar-middle  {
+	background-color: #6D6D6D;
 }
 
 
