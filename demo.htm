@@ -50,6 +50,9 @@
 <h1>acescroll demo</h1>
 <p>a custom scroll bar by Jesse Baird <a href="http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar">http://jebaird.com/blog/shortscroll-jquery-ui-google-wave-style-scroll-bar</a></p>
 
+
+<p> <a href="javascript://" class="triggerResize">trigger resize</a> | <a href="javascript://" class="togglecontent">toggle scroll content</a> </p>
+
 <div class="wrapper">
 	<div class="content noscroll">
 		I shouldnt scroll
@@ -434,6 +437,37 @@
                 collision:'none'
        		}
        });
+       
+       //links
+       $('.triggerResize')
+       		.click(function(){
+       			console.log( 'resize event triggered')
+       			setTimeout(function(){
+
+				$('.wrapper').css('width','350px')
+					setTimeout(function(){
+					
+					$('.wrapper').css('width','700px')
+					},2000)
+				
+				},2000)
+				
+	})	
+       
+     $('.togglecontent')
+       		.click(function(){
+       			console.log( 'toggling content for .vert')
+       			var html = $('.vert').html();
+       			$('.vert').html('');
+       			
+       			console.log( 'click')
+       			setTimeout(function(){
+					$('.vert').html( html );
+				
+				},2000)
+				
+	})
+       
 
 	});
 </script>

@@ -50,7 +50,11 @@
 			var self = this,
 				options = self.options,
 				element = self.element;
-
+				
+				
+			//add the target class first thinng. makes sure the math for the scrollDem will be correct	
+			element.addClass('jb-ace-scroll-target')
+			 
             self.wrapper = $('<div class="jb-ace-scroll-wrapper">'+ 
             					'<div class="jb-ace-scroll-track">'+
             					'<div class="jb-ace-scroll-scrollbar">'+
@@ -70,8 +74,6 @@
             self.wrapper.addClass('jb-ace-scroll-orientation-' + options.orientation )
             
             
-                        
-            
             if( options.orientation == 'vertical' ){
             	self._scrollProp = 'scrollTop';
             	self._axis = 'y';
@@ -87,8 +89,9 @@
             self._isWrapperVisible = true;
             
             
-            element
-            .addClass('jb-ace-scroll-target')
+           
+            
+           element
             .bind( 'scroll.' + this.name,function( event ){
             	self._positionScrollbar();
             	
@@ -109,14 +112,14 @@
 		                    return false;
 		                }
 		                
-		                this.scrollTop =+ this.scrollTop + vel * o.scrollSpeed;
+		                this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;
 		        			
         		}else{
         			
         			   var dirX = deltaX > 0 ? 'Right' : 'Left',
                 			vel = (dirX=='Left')?-Math.abs(deltaX):Math.abs(deltaX);
 		                
-		                this.scrollLeft =+ this.scrollLeft + vel * o.scrollSpeed;
+		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
         			
         		}
                 event.preventDefault();
@@ -126,16 +129,10 @@
             	self._positionWrapper();
             });
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            /*
+             * bind events on the track and scrollbar
+             * 
+             */
             
             //trigger click event
             this.wrapper.delegate( 'div','mousedown', function( event ){
@@ -214,9 +211,9 @@
                 },
                 drag: function(e,ui) {
                 	if( self._isVert() ){
-                		el[0].scrollTop = self._pixelRatio() * ui.position.top;
+                		element[0].scrollTop = self._pixelRatio() * ui.position.top;
                 	}else{
-                		el[0].scrollLeft = self._pixelRatio() * ui.position.left;	
+                		element[0].scrollLeft = self._pixelRatio() * ui.position.left;	
                 	}
                     
                },
@@ -352,7 +349,7 @@
         	//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
         	var height = 100 / Math.ceil( this._getScrollDem() / this._viewPort ) ;
         	
-        	console.log( 'height ', height, this._getScrollDem(), this.element.css('overflow') )
+        	//console.log( 'height ', height, this._getScrollDem(), this.element.css('overflow') )
         	
         	if( height < this.options.minScrollBarWidth ){
         		height = this.options.minScrollBarWidth;
