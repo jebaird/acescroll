@@ -30,6 +30,12 @@
 			scrollSpeed: 100,
 			animationSpeed: 150,
 			orientation: 'vertical',
+			//numeric value in % or false to disable(use css value and is always that width)
+			minScrollBarWidth: 10,
+			//hide the scrollbar if the  content is not scrollable, show it if it is
+			autoHide: true,
+			//in ms how fast we check the target element for scrollChanges
+			scrollChangeThrottle: 500,
 			position: {
 				my:'left top',
                 at:'right top',
@@ -53,7 +59,8 @@
             						'<div class="jb-ace-scroll-scrollbar-btn-down jb-ace-scroll-scrollbar-btn" data-dir="down"></div>'+
             						'</div>'+
             					'</div>'+
-            				'</div>').insertAfter(el);
+            				'</div>'
+            				).insertAfter(el);
             				
             self.scrollbar = self.wrapper.find('.jb-ace-scroll-scrollbar');
             
@@ -62,19 +69,24 @@
             
             self.wrapper.addClass('jb-ace-scroll-orientation-' + o.orientation )
             
-            self._positionWrapper();
+            
                         
+            
             if( o.orientation == 'vertical' ){
-            	self._viewPort = el.innerHeight();
             	self._scrollProp = 'scrollTop';
             	self._axis = 'y';
             }else{
-            	self._viewPort = el.innerWidth();
-            	self._scrollProp = 'scrollTop';
+            	self._scrollProp = 'scrollLeft';
             	self._axis = 'x';
             }
             
+            
             self._positionWrapper();
+            
+            
+            //keep track if the wrapper is visible, used when we check the element for scroll changes
+            self._isWrapperVisible = true;
+            
             
             el
             .addClass('jb-ace-scroll-target')
@@ -111,6 +123,10 @@
                 event.preventDefault();
 
             })
+            .bind('resize.' + this.name, function( event ) {
+            	self._positionWrapper();
+            });
+            
             //trigger click event
             this.wrapper.delegate( 'div','mousedown', function( event ){
             	return self._eventHelper('click', event, {} )
@@ -199,6 +215,13 @@
                 	$(this).removeClass('jb-state-active')
                 }
             });
+            
+            
+          //  self.setScrollBarWidth();
+            
+            //recursivle called
+            
+            self._handleElementChange();
 		},
 				
 		destroy: function() {			
@@ -237,11 +260,11 @@
           		);
           	}
         },
-        //based on the scrolltop postiion the scrollbar
+        //used to set the scrollbar in the right position within the track
         _positionScrollbar: function(){
         	
         	if( this.isDragging ){
-        		///if draggging return becuase it messes witht he view
+        		///if draggging return becuase it messes witht the view
         		return;
         	} 
         	if( this._isVert() ){
@@ -251,16 +274,30 @@
         	}
         	 
         },
+        //sets the s
         _positionWrapper: function(){
-            var css = {};
+            var css = {},
+            	element = this.element;
             if( this._isVert() ){
+            	
+            	this._viewPort = element.innerHeight();
             	css[ 'height' ] = this._viewPort;
+            	
+
             }else{
+            	
+				this._viewPort = element.innerWidth();
             	css[ 'width' ] = this._viewPort;
             }
             this.wrapper
 	            .css(css)
 	            .position( $.extend( this.options.position, { of:this.element}))
+	        
+	        //since the wrapper dem might have changed make sure the scrollbar postion is perportional to it 
+	       	//set the width before posiion, insures that the bar doesnt overhang on the track
+	        this.setScrollBarWidth();
+	        this._positionScrollbar();
+	        
         },
         _isVert: function(){
         	return ( this.options.orientation == 'vertical' ) ? true : false;
@@ -277,6 +314,7 @@
         	
         	return true;
         },
+
         _eventHelper: function( eventName, event, options ){
         	var isVert = this._isVert(),
         		element = this.element[0];
@@ -287,13 +325,85 @@
         		$.extend(
         			{},
         			{
-        				scrollDem: ( isVert ) ? element.scrollHeight : element.scrollWidth,
-        				scrollPos: ( isVert ) ? element.scrollTop : element.scrollLeft,
+        				scrollDem: this._getScrollDem(),
+        				scrollPos: this._getScrollPos(),
         				viewPort: this._viewPort
         			},
         			options
         		) 
         	)
+        },
+
+        //make the scrollbar size relitave to the scrollHeight/Width
+        setScrollBarWidth: function(){
+        	//this.scrollbar
+        	//disabled option
+        	if( this.options.minScrollBarWidth === false ){
+        		return;
+        	}
+        	//figure out how many "pages" are in the scrollable and devide that by 100 to get the height perenctage
+        	var height = 100 / Math.ceil( this.element[0].scrollHeight / this._viewPort ) ;
+        	console.log( 'height', height );
+        	
+        	if( height < this.options.minScrollBarWidth ){
+        		height = this.options.minScrollBarWidth;
+        	}
+        	if( this._isVert() ){
+        		this.scrollbar.css( 'height', height +'%' )	
+        	}else{
+        		this.scrollbar.css( 'width', height +'%' )
+        	}
+        	
+        	
+        	
+        	
+        },
+        //returns scrollHeight or scrollWidth depening orentation
+        _getScrollDem: function(){
+        	var element = this.element[ 0 ];
+        	return ( this._isVert() ) ? element.scrollHeight : element.scrollWidth;
+        },
+        //get the scrollbar position
+        _getScrollPos: function(){
+        	var element = this.element[ 0 ];
+        	return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
+        },
+        //call this if the viewport changed( then position the wrapper and scrollbar and change the height )
+        //use scrollHeight, or scrollWidth
+        _handleElementChange: function(){
+        	var self = this,
+        		isScrollable = this._isScrollable();
+    	
+        	
+        	
+        	
+        	if( this._getScrollDem() != this._prevScrollDem && this._prevScrollDem != undefined && isScrollable == true ){
+        		
+        		this.setScrollBarWidth();
+        	
+        	//hide the scrollbar if not scrollable
+        	}else if( isScrollable == false && this.options.autoHide == true && this._isWrapperVisible == true ){
+        		
+        		this.wrapper.hide();
+        		this._isWrapperVisible = false;
+        		
+        	}else if( isScrollable == true && this.options.autoHide == true && this._isWrapperVisible == false ){
+        		
+        		//console.log( 'show')
+        		this.wrapper.show();
+        		this._isWrapperVisible = true;
+        	
+        	}
+        	
+        	this._prevScrollDem = this._getScrollDem();
+        	
+        	//call again
+        	setTimeout( 
+        		function(){
+        			self._handleElementChange()
+        		}, 
+        		this.options.scrollChangeThrottle 
+        	);
         }
         
         
