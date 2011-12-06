@@ -146,11 +146,11 @@
             		if( self._isVert() ){
             			element.animate({
 	                    	'scrollTop': self._pixelRatio() * e.layerY
-	                	},o.animationSpeed);	
+	                	},options.animationSpeed);	
             		}else{
             			element.animate({
 	                    	'scrollLeft': self._pixelRatio() * e.layerX
-	                	},o.animationSpeed);	
+	                	},options.animationSpeed);	
             		}
             	})
             	.bind('mouseenter',function(){
