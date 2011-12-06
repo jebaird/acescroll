@@ -1,12 +1,10 @@
 /*
  * ace-scroll - jQuery UI Widget 
- * Copyright (c) 2010 Jesse Baird
- *
- * http://jebaird.com/blog/ace-scroll-jquery-ui-google-wave-style-scroll-bar
- *
+ * Copyright (c) 2011 Jesse Baird
+ * *
  * Depends:
  *   - jQuery 1.4
- *   - jQuery UI 1.8 (core, widget factory, draggable, position)
+ *   - jQuery UI 1.8.16 (core, widget factory, draggable, position)
  *   - jQuery mousewheel plugin - Copyright (c) 2010 Brandon Aaron (http://brandonaaron.net)
  *
  * Dual licensed under the MIT and GPL licenses:
@@ -17,9 +15,6 @@
  * events 
  * 	click - user clicked on track or scrollbar
  * 	scroll - the scrollPos has changed
- * 
- * TODO:
- * interaction classes
  *
 */
 (function($) {
@@ -34,7 +29,7 @@
 			minScrollBarWidth: 10,
 			//hide the scrollbar if the  content is not scrollable, show it if it is
 			autoHide: true,
-			//in ms how fast we check the target element for scrollChanges
+			//in ms how fast we check the target element for scrollChanges like resize or content chagnes
 			scrollChangeThrottle: 500,
 			position: {
 				my:'left top',
@@ -376,8 +371,9 @@
         	var element = this.element[ 0 ];
         	return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
         },
-        //call this if the viewport changed( then position the wrapper and scrollbar and change the height )
-        //use scrollHeight, or scrollWidth
+        
+        
+		// is is run every 
         _handleElementChange: function(){
         	var self = this,
         		isScrollable = this._isScrollable();

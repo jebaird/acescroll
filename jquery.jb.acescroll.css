@@ -1,15 +1,15 @@
 /*
- * 
- * ace scroll layout
- * 
+ * ace-scroll - jQuery UI Widget 
+ * Copyright (c) 2011 Jesse Baird
  */
 
-
+/*this gets applied to target element*/
 .jb-ace-scroll-target{
     overflow:hidden;       
 
 }
 
+/*this element wrappes the scroll track and scrollbar*/
 .jb-ace-scroll-wrapper {
 	z-index: 1500;
     position: absolute;
@@ -55,7 +55,10 @@
 }
 
 
-/* horizontal layout */
+/* 
+ * horizontal layout 
+ * 
+ */
 
 .jb-ace-scroll-orientation-horizontal{
     height: 6px;
@@ -80,18 +83,11 @@
 	top: auto;
 }
 
-.jb-ace-scroll-orientation-horizontal .jb-ace-scroll-scrollbar .ui-state-hover{
-    border:1px solid #7F7F7F;
-}
-.jb-ace-scroll-orientation-horizontal .jb-ace-scroll-scrollbar .jb-ace-scroll-scrollbar-middle{
 
-}
-
-
-
-
-
-/* vertical layout */
+/* 
+ * vertical layout 
+ * 
+ */
 .jb-ace-scroll-orientation-vertical{
     width: 6px;
 }
@@ -113,12 +109,5 @@
 
 .jb-ace-scroll-orientation-vertical .jb-ace-scroll-scrollbar .jb-ace-scroll-scrollbar-btn-down{
 	top: auto;
-}
-
-.jb-ace-scroll-orientation-vertical .jb-ace-scroll-scrollbar .ui-state-hover{
-
-}
-.jb-ace-scroll-orientation-vertical .jb-ace-scroll-scrollbar .jb-ace-scroll-scrollbar-middle{
-
 }
 
