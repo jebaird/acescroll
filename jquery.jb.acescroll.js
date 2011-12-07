@@ -294,6 +294,7 @@
 				this._viewPort = element.innerWidth();
             	css[ 'width' ] = this._viewPort;
             }
+            
             this.wrapper
 	            .css(css)
 	            .position( $.extend( this.options.position, { of:this.element}))
@@ -373,8 +374,10 @@
         	return ( this._isVert() ) ? element.scrollTop : element.scrollLeft;
         },
         
-        
-		// is is run every 
+        /*
+         * ran at an interval
+         * 	catches scroll postion and changes and if the element if visible it will show / hide the scrollbar
+         */
         _handleElementChange: function(){
         	var self = this,
         		isScrollable = this._isScrollable();
@@ -392,8 +395,9 @@
         		
         	}else if( isScrollable == true && this.options.autoHide == true && this._isWrapperVisible == false ){
         		
-        		//console.log( 'show')
         		this.wrapper.show();
+        		//makes sure it gets positioned on the correctly based on the visible position
+        		this._positionWrapper();
         		this._isWrapperVisible = true;
         	
         	}
