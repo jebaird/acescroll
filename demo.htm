@@ -31,7 +31,13 @@
             margin-bottom: 3em;
             border: 1px solid black;
         }
-
+        
+        
+        .wrapper .content .wrapper{
+        	width: 50%;
+        	height: 25%;
+        	margin: 2em;
+        }
         .content{
             width: 100%;
             height:100%
@@ -68,6 +74,27 @@
 <div class="content vert">
 
 <h1>This is a demo</h1>
+
+
+<div class="wrapper">
+	<div class="content vert">
+	 <h1>test of nested scroll bars</h1>
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	 Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+	</div>
+<div>
+
+
+<textarea rows="10" cols="10">
+	test children that can scroll
+	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
+</textarea>
+
 
 <p>
 	Lorem ipsum omnium omnesque persecuti pri eu, ex eos albucius apeirian dignissim. Ei ludus veniam sit, mel fugit vulputate no. Ad sonet delenit tibique sea. Has voluptua cotidieque referrentur in, vim no mandamus theophrastus.
@@ -435,6 +462,9 @@
                 at:'left top',
                 offset:'0 -5',
                 collision:'none'
+       		},
+       		scroll: function(e, ui ){
+       			console.log( 'scroll ', e, ui)
        		}
        });
        

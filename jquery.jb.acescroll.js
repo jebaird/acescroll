@@ -28,6 +28,7 @@
 			//numeric value in % or false to disable(use css value and is always that width)
 			minScrollBarWidth: 10,
 			//hide the scrollbar if the  content is not scrollable, show it if it is
+			//TODO: make work like css overflow property, none, auto, scroll
 			autoHide: true,
 			//in ms how fast we check the target element for scrollChanges like resize or content chagnes
 			//set to 0 to disable
@@ -82,20 +83,31 @@
             self._positionWrapper();
             
             //keep track if the wrapper is visible, used when we check the element for scroll changes
-            self._isWrapperVisible = true;
-            
-            
+            self._isWrapperVisible = true;           
            
             
            element
             .bind( 'scroll.' + this.name,function( event ){
             	self._positionScrollbar();
             	
+            	self._eventHelper('scroll', event, {} )
+            	
             	return self._getScrollDimension('scroll', event, {} );
 
             })
             .bind( 'mousewheel.' + this.name , function( event, delta, deltaX, deltaY){
-        	//	console.log( 'mosuewheel', event, delta, deltaX, deltaY )
+        		//console.log( 'mosuewheel', event, delta, deltaX, deltaY );
+        		
+        		var target = event.target;
+        		
+        		/*
+        		 * if the event target can be scrolled and is not this element, let it do so
+        		 * could be a another div with scroll, textarea or another acescroll instance
+        		 */
+        		if( self._isScrollable( target ) && target != element[ 0 ]){
+        			
+        			return;	
+        		}
         		
         		if( self._isVert() ){
         			
@@ -105,7 +117,7 @@
 		              //  	console.log( this.scrollTop, this.scrollHeight )
 		               	if( this[ self._scrollProp ] == 0 && dirY == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dirY=='Down'  ){
 		                    //console.log('up false');
-		                    return false;
+		                    return;
 		                }
 		                
 		                this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;
@@ -118,7 +130,10 @@
 		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
         			
         		}
-                event.preventDefault();
+        		
+				
+				return false
+                
 
             })
             .bind('resize.' + this.name, function( event ) {
@@ -308,9 +323,12 @@
         _isVert: function(){
         	return ( this.options.orientation == 'vertical' ) ? true : false;
         },
-        _isScrollable: function(){
+        /*
+         * check if an element can be scrolled
+         */
+        _isScrollable: function( element ){
         	var isVert = this._isVert(),
-        		element = this.element[0];
+        		element = ( element ) ? element : this.element[0];
         	if( element.scrollHeight <= element.offsetHeight && isVert ){
         		//disable reset dragable and disable
         		return false;
