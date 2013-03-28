@@ -18,7 +18,8 @@
  *
 */
 (function($) {
-
+	
+	var abs = Math.abs;
 
     $.widget("jb.acescroll", {
 		options: {
@@ -99,34 +100,36 @@
         		//console.log( 'mosuewheel', event, delta, deltaX, deltaY );
         		
         		var target = event.target;
-        		
+        		//console.log( target, self._isScrollable( target ))
         		/*
         		 * if the event target can be scrolled and is not this element, let it do so
         		 * could be a another div with scroll, textarea or another acescroll instance
         		 */
         		if( self._isScrollable( target ) && target != element[ 0 ]){
-        			
         			return;	
         		}
-        		
+        		//vertical 
         		if( self._isVert() ){
         			
         			   var dirY = deltaY > 0 ? 'Up' : 'Down',
 		                	vel = (dirY=='Up')?-Math.abs(deltaY):Math.abs(deltaY);
-		                	//
-		              //  	console.log( this.scrollTop, this.scrollHeight )
+		                
 		               	if( this[ self._scrollProp ] == 0 && dirY == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dirY=='Down'  ){
-		                    //console.log('up false');
+		               		//can't scroll any more
 		                    return;
+		                }else{
+		                	//only prevent the default if we can can scroll on this element
+		                	this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;	
+		                	return false;
 		                }
 		                
-		                this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;
-		        			
+		                
         		}else{
+        			//horizontal
         			
         			   var dirX = deltaX > 0 ? 'Right' : 'Left',
-                			vel = (dirX=='Left')?-Math.abs(deltaX):Math.abs(deltaX);
-		                
+                			vel = (dirX=='Left')?-abs(deltaX):abs(deltaX);
+		                //TODO: add scroll check like vertical has, i currenty dont have a mouse that has horz scrolling
 		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
         			
         		}
@@ -212,7 +215,7 @@
                 cancel: '.jb-ace-scroll-scrollbar-btn',
                 start: function( e, ui ){
                 	///if the scrollHeight is the same as the offsetHeight then we can scroll
-                	if( self._isScrollable() == false ){
+                	if( self._isScrollable( element[ 0 ] ) == false ){
                 		return false;
                 	}
                 	self.isDragging = true;
@@ -323,16 +326,11 @@
          * check if an element can be scrolled
          */
         _isScrollable: function( element ){
-        	var isVert = this._isVert(),
-        		element = ( element ) ? element : this.element[0];
-        	if( element.scrollHeight <= element.offsetHeight && isVert ){
-        		//disable reset dragable and disable
-        		return false;
-        	}else if( element.scrollWidth <= element.offsetWidth && !isVert ){
-        		return false;	
+        	if( element.scrollHeight > element.offsetHeight || element.scrollWidth > element.offsetWidth ){
+        		return true;
         	}
         	
-        	return true;
+        	return false;
         },
 
         _eventHelper: function( eventName, event, options ){
@@ -394,7 +392,7 @@
          */
         _handleElementChange: function(){
         	var self = this,
-        		isScrollable = this._isScrollable();
+        		isScrollable = this._isScrollable( this.element[ 0 ] );
     	
         	
         	if( this._getScrollDimension() != this._prevScrollDimension && this._prevScrollDimension != undefined && isScrollable == true ){
