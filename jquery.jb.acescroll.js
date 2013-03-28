@@ -112,7 +112,7 @@
         		if( self._isVert() ){
         			
         			   var dirY = deltaY > 0 ? 'Up' : 'Down',
-		                	vel = (dirY=='Up')?-Math.abs(deltaY):Math.abs(deltaY);
+		                	vel = (dirY=='Up')?-abs(deltaY):abs(deltaY);
 		                
 		               	if( this[ self._scrollProp ] == 0 && dirY == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dirY=='Down'  ){
 		               		//can't scroll any more
