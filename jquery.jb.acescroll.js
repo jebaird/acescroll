@@ -130,10 +130,6 @@
 		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
         			
         		}
-        		
-				
-				return false
-                
 
             })
             .bind('resize.' + this.name, function( event ) {
