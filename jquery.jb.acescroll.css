@@ -11,7 +11,7 @@
 
 /*this element wrappes the scroll track and scrollbar*/
 .jb-ace-scroll-wrapper {
-	z-index: 1500;
+	z-index: 100;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -66,7 +66,7 @@
 .jb-ace-scroll-orientation-horizontal .jb-ace-scroll-track .jb-ace-scroll-scrollbar{
     width: 50px;
     height: 6px;
-    z-index: 1501;
+    z-index: 101;
     position: absolute;
     width: 30px;
 }
@@ -94,7 +94,7 @@
 
 .jb-ace-scroll-orientation-vertical .jb-ace-scroll-track .jb-ace-scroll-scrollbar{
     height: 50px;
-    z-index: 1501;
+    z-index: 101;
     position: absolute;
    	left: 0px;
    	right: 0px;
