@@ -1,8 +1,8 @@
 /*
  * ace-scroll - jQuery UI Widget 
- * Copyright (c) 2011 Jesse Baird
- * *
- * Depends:
+ * Copyright (c) 2013 Jesse Baird
+ * 
+ * Depends on:
  *   - jQuery 1.4
  *   - jQuery UI 1.8.16 (core, widget factory, draggable, position)
  *   - jQuery mousewheel plugin - Copyright (c) 2010 Brandon Aaron (http://brandonaaron.net)
@@ -86,6 +86,14 @@
             //keep track if the wrapper is visible, used when we check the element for scroll changes
             self._isWrapperVisible = true;           
            
+           //track the focus event on the mouse wheel in addition to is scrollable
+           var _lastmousewheelTarget = null,
+           /*
+            * the default browser behavior has a timer between the mouse wheel events for the "target" gets reset
+            * so in the case of multipule nested scrolled elements if you mouse over the first one and use the wheel it will scroll that one even if your mouse is over a child that has scroll
+            * its only when you pause for about a second on a scrollable child then the child has scroll focus
+            */
+           		_lastmousewheeltargetTimer = 0;
             
            element
             .bind( 'scroll.' + this.name,function( event ){
@@ -100,14 +108,28 @@
         		//console.log( 'mosuewheel', event, delta, deltaX, deltaY );
         		
         		var target = event.target;
-        		//console.log( target, self._isScrollable( target ))
+        		//console.log( target, self._isScrollable( target ) )
+        		
+        		clearTimeout( _lastmousewheeltargetTimer )
+        		
         		/*
         		 * if the event target can be scrolled and is not this element, let it do so
         		 * could be a another div with scroll, textarea or another acescroll instance
         		 */
-        		if( self._isScrollable( target ) && target != element[ 0 ]){
-        			return;	
+        		if( _lastmousewheelTarget != null ){
+        			if(  self._isScrollable( target ) && target != element[ 0 ] ){
+	        			return;	
+	        		}
         		}
+        		
+        		
+        		_lastmousewheelTarget = target;
+        		
+        		_lastmousewheeltargetTimer = setTimeout(function(){
+        			_lastmousewheelTarget = null;
+        		},500)
+        		
+        		
         		//vertical 
         		if( self._isVert() ){
         			
@@ -133,6 +155,9 @@
 		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
         			
         		}
+        		
+        		
+        	
 
             })
             .bind('resize.' + this.name, function( event ) {
