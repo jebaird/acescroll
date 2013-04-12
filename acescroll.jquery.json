@@ -1,0 +1,29 @@
+{
+    "name": "acescroll",
+    "title": "AcesSroll",
+    "description": "A jQuery UI widget that aims to replace the default browser scroll bar with one that can be easily styled using css.",
+    "keywords": [
+        "mousewheel",
+        "scroll",
+        "scrollbar"
+        
+    ],
+    "version": "1.0.0",
+    "author": {
+        "name": "Jesse Baird",
+        "url": "http://jebaird.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/jebaird/acescroll/master/LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/jebaird/acescroll/issues",
+    "homepage": "https://github.com/jebaird/acescroll",
+    "download": "https://github.com/jebaird/acescroll/tags",
+    "dependencies": {
+        "jquery": ">=1.4.1",
+        "jquery-ui": '>=1.18.16'
+    }
+}
