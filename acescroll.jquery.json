@@ -8,7 +8,7 @@
         "scrollbar"
         
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
         "name": "Jesse Baird",
         "url": "http://jebaird.com"
@@ -24,6 +24,6 @@
     "download": "https://github.com/jebaird/acescroll/tags",
     "dependencies": {
         "jquery": ">=1.4.1",
-        "jquery-ui": '>=1.18.16'
+        "jquery-ui": ">=1.18.16"
     }
 }
