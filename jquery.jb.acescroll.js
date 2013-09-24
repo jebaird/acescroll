@@ -351,11 +351,20 @@
          * check if an element can be scrolled
          */
         _isScrollable: function( element ){
-        	if( element.scrollHeight > element.offsetHeight || element.scrollWidth > element.offsetWidth ){
-        		return true;
-        	}
-        	
-        	return false;
+        	//vertical check
+            if(this.options.orientation == 'vertical'){
+               if( element.scrollHeight > element.offsetHeight ){
+                  return true;
+               }
+            }
+            
+            //horizontal check
+            else{
+               if( element.scrollWidth > element.offsetWidth ){
+                  return true;
+               } 
+            }
+            return false;
         },
 
         _eventHelper: function( eventName, event, options ){
