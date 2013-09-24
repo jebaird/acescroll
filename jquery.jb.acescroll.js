@@ -352,17 +352,15 @@
          */
         _isScrollable: function( element ){
         	//vertical check
-            if(this.options.orientation == 'vertical'){
+            if( this.options.orientation == 'vertical' ){
+            	
                if( element.scrollHeight > element.offsetHeight ){
                   return true;
                }
-            }
-            
-            //horizontal check
-            else{
-               if( element.scrollWidth > element.offsetWidth ){
-                  return true;
-               } 
+               //horizontal check
+            }else if( element.scrollWidth > element.offsetWidth ){
+            	return true;
+            	
             }
             return false;
         },
