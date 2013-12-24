@@ -23,7 +23,8 @@
 
     $.widget("jb.acescroll", {
 		options: {
-			scrollSpeed: 100,
+			// Deltas on Mac are set to a higher ratio ~40, compensate with lower scrollSpeed
+			scrollSpeed: window.navigator.platform.match(/mac/gi) ? 30 : 100,
 			animationSpeed: 150,
 			orientation: 'vertical',
 			//numeric value in % or false to disable(use css value and is always that width)
@@ -34,6 +35,8 @@
 			//in ms how fast we check the target element for scrollChanges like resize or content chagnes
 			//set to 0 to disable
 			scrollChangeInterval: 500,
+			//Maximum velocity to prevent shooting to the bottom of the page at a way too high velocity.
+			speedLimit: 5,
 			position: {
 				my:'left top',
                 at:'right top',
@@ -133,15 +136,18 @@
         		//vertical 
         		if( self._isVert() ){
         			
-        			   var dirY = deltaY > 0 ? 'Up' : 'Down',
-		                	vel = (dirY=='Up')?-abs(deltaY):abs(deltaY);
+					var sl = options.speedLimit,
+						dirY = deltaY > 0 ? 'Up' : 'Down',
+						deltaY = (abs(deltaY) > sl) ? sl : deltaY,
+						vel = (dirY=='Up') ? -abs(deltaY) : abs(deltaY);
 		                
 		               	if( this[ self._scrollProp ] == 0 && dirY == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dirY=='Down'  ){
 		               		//can't scroll any more
 		                    return;
 		                }else{
-		                	//only prevent the default if we can can scroll on this element
-		                	this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;	
+							var thresh = vel * options.scrollSpeed;
+							//only prevent the default if we can can scroll on this element
+		                	this.scrollTop +=+ thresh; //thresh > 200 ? 200 : thresh;
 		                	return false;
 		                }
 		                
