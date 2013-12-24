@@ -35,7 +35,7 @@
 			//in ms how fast we check the target element for scrollChanges like resize or content chagnes
 			//set to 0 to disable
 			scrollChangeInterval: 500,
-			//Maximum velocity to prevent shooting to the bottom of the page at a way too high velocity.
+			// Maximum velocity to prevent shooting to the bottom of the page at a way too high velocity.
 			speedLimit: 5,
 			position: {
 				my:'left top',
@@ -145,9 +145,8 @@
 		               		//can't scroll any more
 		                    return;
 		                }else{
-							var thresh = vel * options.scrollSpeed;
-							//only prevent the default if we can can scroll on this element
-		                	this.scrollTop +=+ thresh; //thresh > 200 ? 200 : thresh;
+		                	//only prevent the default if we can can scroll on this element
+		                	this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;	
 		                	return false;
 		                }
 		                
