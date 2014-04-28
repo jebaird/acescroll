@@ -1,4 +1,4 @@
-#AceScroll
+# AceScroll
 Copyright (c) 2013 Jesse Baird <jebaird.com>
 
 Dual licensed under the MIT and GPL licenses:
@@ -9,18 +9,18 @@ Dual licensed under the MIT and GPL licenses:
 A jQuery UI widget that aims to replace the default browser scroll bar with one that can be easily styled using css. Also has support for nested scrollable elements. I uses scrollTop / scrollLeft dom properties so it should play nice with any other scroll plugins.
 
 
-##Dependencies
+## Dependencies
 * jQuery 1.4 +
 * jQuery UI 1.8.16 (core, widget factory, draggable, position)
 * jQuery mousewheel plugin - Copyright (c) 2010 Brandon Aaron (http://brandonaaron.net)
 
  
-##Events 
+## Events 
 * click - user clicked on track or scroll bar
 * scroll - the scrollPos has changed
 
 
-##Options
+## Options
 * scrollSpeed {int} 100 speed at which the target is scrolled
 * animationSpeed {int} 100 speed at which the scroll bar is moved when the track is clicked
 * orientation {string} vertical or horizontal
