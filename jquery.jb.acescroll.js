@@ -239,7 +239,7 @@
                 
                 cancel: '.jb-ace-scroll-scrollbar-btn',
                 start: function( e, ui ){
-                	///if the scrollHeight is the same as the offsetHeight then we can scroll
+                	///if the scrollHeight is the same as the clientHeight then we can scroll
                 	if( self._isScrollable( element[ 0 ] ) == false ){
                 		return false;
                 	}
@@ -354,11 +354,11 @@
         	//vertical check
             if( this.options.orientation == 'vertical' ){
             	
-               if( element.scrollHeight > element.offsetHeight ){
+               if( element.scrollHeight > element.clientHeight ){
                   return true;
                }
                //horizontal check
-            }else if( element.scrollWidth > element.offsetWidth ){
+            }else if( element.scrollWidth > element.clientWidth ){
             	return true;
             	
             }
