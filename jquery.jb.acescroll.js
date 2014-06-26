@@ -115,9 +115,11 @@
         		/*
         		 * if the event target can be scrolled and is not this element, let it do so
         		 * could be a another div with scroll, textarea or another acescroll instance
+        		 * Also even if it is scrollable and not the the current instance of acescroll make sure it has an
+        		 * instance of acescroll called on it before stopping the scroll event.
         		 */
         		if( _lastmousewheelTarget != null ){
-        			if(  self._isScrollable( target ) && target != element[ 0 ] ){
+        			if(  self._isScrollable( target ) && target != element[ 0 ] && $(target).hasClass('.jb-ace-scroll-target') ){
 	        			return;	
 	        		}
         		}
