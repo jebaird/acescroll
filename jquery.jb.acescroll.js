@@ -119,7 +119,7 @@
         		 * instance of acescroll called on it before stopping the scroll event.
         		 */
         		if( _lastmousewheelTarget != null ){
-        			if(  self._isScrollable( target ) && target != element[ 0 ] && $(target).hasClass('.jb-ace-scroll-target') ){
+        			if(  self._isScrollable( target ) && target != element[ 0 ] && $(target).hasClass('jb-ace-scroll-target') ){
 	        			return;	
 	        		}
         		}
