@@ -119,7 +119,7 @@
         		 * instance of acescroll called on it before stopping the scroll event.
         		 */
         		if( _lastmousewheelTarget != null ){
-        			if(  self._isScrollable( target ) && target != element[ 0 ] && $(target).hasClass('jb-ace-scroll-target') ){
+        			if(  self._isScrollable( target ) && target != element[ 0 ] && $(target).hasClass('.jb-ace-scroll-target') ){
 	        			return;	
 	        		}
         		}
@@ -135,27 +135,21 @@
         		//vertical 
         		if( self._isVert() ){
         			
-        			   var dirY = deltaY > 0 ? 'Up' : 'Down',
-		                	vel = (dirY=='Up')?-abs(deltaY):abs(deltaY);
+        			   var dirY = deltaY > 0 ? 'Up' : 'Down';
 		                
 		               	if( this[ self._scrollProp ] == 0 && dirY == 'Up' || this[ self._scrollProp ] + self._viewPort == this.scrollHeight && dirY=='Down'  ){
 		               		//can't scroll any more
 		                    return;
 		                }else{
 		                	//only prevent the default if we can can scroll on this element
-		                	this.scrollTop =+ this.scrollTop + vel * options.scrollSpeed;	
+		                	this.scrollTop = this.scrollTop - deltaY * event.deltaFactor;	
 		                	return false;
 		                }
 		                
 		                
         		}else{
         			//horizontal
-        			
-        			   var dirX = deltaX > 0 ? 'Right' : 'Left',
-                			vel = (dirX=='Left')?-abs(deltaX):abs(deltaX);
-		                //TODO: add scroll check like vertical has, i currenty dont have a mouse that has horz scrolling
-		                this.scrollLeft =+ this.scrollLeft + vel * options.scrollSpeed;
-        			
+        			this.scrollLeft = this.scrollLeft + deltaX * event.deltaFactor;        			
         		}
         		
         		
