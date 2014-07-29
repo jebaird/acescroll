@@ -23,7 +23,6 @@
 
     $.widget("jb.acescroll", {
 		options: {
-			scrollSpeed: 100,
 			animationSpeed: 150,
 			orientation: 'vertical',
 			//numeric value in % or false to disable(use css value and is always that width)
