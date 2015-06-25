@@ -264,9 +264,10 @@
 		},
 				
 		destroy: function() {			
+			
+			// Remove wrapper and resize events
 			this.wrapper.remove();
-			//remove wrapper and mouse wheel events
-			$(window).unbind("resize");
+			this.element.unbind( 'resize.' + this.name );
 		},
 		//TODO: fix this up
 		_setOption: function( key, value) {
