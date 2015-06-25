@@ -267,7 +267,7 @@
 			
 			// Remove wrapper and resize events
 			this.wrapper.remove();
-			this.element.unbind( 'resize' );
+			this.element.unbind( 'resize.' + this.name );
 		},
 		//TODO: fix this up
 		_setOption: function( key, value) {
